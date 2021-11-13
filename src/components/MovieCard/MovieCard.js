@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import "./MovieCard.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -20,17 +20,20 @@ const MovieCard = ({
 
     return (
         <Card style={{ width: '18rem' }} className="book">
+            <Card.Img variant="top" src={poster ? poster : "cantina.png"} onClick={() => navigate(`/movies/${id}`)}  />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
-                <div>
-                    <img src={poster ? poster : "cantina.png"}  onClick={() => navigate(`/movies/${id}`)} className="card-image img-fluid img-cover rounded-top"/>
-                    <div className="date">{release_date}</div>
-                    <div><p>{truncate(description, 100)}</p></div>
-                </div>
-                <Button variant="danger" onClick={() => handleRemoveMovie(id)}>
+                <Card.Text className="movie-date">{release_date}</Card.Text>
+                <Card.Text>{truncate(description, 100)}</Card.Text>
+            </Card.Body>
+            <Card.Footer>
+                <Button size="sm" variant="primary" onClick={() => navigate(`/movies/${id}`)}>
+                    Edit
+                </Button>{' '}
+                <Button size="sm" variant="danger" onClick={() => handleRemoveMovie(id)}>
                     Delete
                 </Button>
-            </Card.Body>
+            </Card.Footer>
         </Card>
     );
 }

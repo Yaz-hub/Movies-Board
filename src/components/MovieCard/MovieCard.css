@@ -4,3 +4,6 @@
 img {
     cursor: pointer;
 }
+.movie-date {
+    color: grey;
+}
