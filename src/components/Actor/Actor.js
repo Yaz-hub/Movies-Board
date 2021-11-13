@@ -1,6 +1,5 @@
 import React from "react";
-import { Col, Image } from "react-bootstrap";
-import ReactRoundedImage from "react-rounded-image";
+import { Col, Row } from "react-bootstrap";
 import "./Actor.css";
 
 const Actor = ({
@@ -9,19 +8,22 @@ const Actor = ({
     character,
   }) => {
     return(
-        <Col xs={6}>
-            <Col xs={2} className="align-items-center">
-                <ReactRoundedImage
-                    image={photo}
-                    roundedColor="#321124"
-                    imageWidth="100"
-                    imageHeight="100"
-                    roundedSize="5"
-                    borderRadius="40"
-                />
-            </Col>
-            <Col xs={2}><span className="text-center actor">{name}</span></Col>
-            <Col><span className="text-center actor">{character}</span></Col>
+        <Col xs={12} md={6}>
+            <Row>
+                <Col xs={4} md={2} className="mb-4">
+                    <div className="avatar-big"> 
+                        <img className="avatar-img rounded-circle" src={photo} />
+                    </div>
+                </Col>
+                <Col xs={6} className="mb-4">
+                    <div className="mt-3">
+                        <p>
+                            <span className="actor">{name}</span><br/>
+                            <span className="character">{character}</span>
+                        </p>
+                    </div>
+                </Col>
+            </Row>
         </Col>
     );
 }
