@@ -4,7 +4,7 @@ import MovieService from "../../services/MovieService";
 import AsyncSelect from 'react-select/async';
 import MovieFrom from "../Form/MovieForm";
 
-const AddMovie = ({navigate, }) => {
+const AddMovie = ({navigate}) => {
 
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
