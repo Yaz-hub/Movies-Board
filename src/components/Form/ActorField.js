@@ -1,0 +1,87 @@
+import { Form, Button } from "react-bootstrap";
+
+const ActorField = ({actors, setActors}) => {
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...actors];
+    list[index][name] = value;
+    setActors(list);
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...actors];
+    list.splice(index, 1);
+    setActors(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setActors([...actors, { name: "", photo: "", character: "" }]);
+  };
+
+  return (
+    <>
+      {actors.map((x, i) => {
+        return (
+          <div key={"a"+i}>
+            <Form.Group>
+              <Form.Label>Actor Name</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                value={x.name}
+                placeholder="Enter Actor Name"
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Actor Photo</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                value={x.photo}
+                placeholder="Enter Actor photo URL"
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </Form.Group>
+            <Form.Group>  
+              <Form.Label>Actor Role</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                value={x.character}
+                placeholder="Enter Role of actor"
+                onChange={(e) => handleInputChange(e, i)}
+              />
+            </Form.Group>
+            <div className="mt-3">
+              {actors.length !== 1 && (
+                <Button
+                  variant="danger"
+                  className="btn btn-sm mr-2"
+                  onClick={() => handleRemoveClick(i)}
+                >
+                  Remove Actor
+                </Button>
+              )}
+              {actors.length - 1 === i && (
+                <Button
+                  variant="primary"
+                  className="btn btn-sm"
+                  onClick={handleAddClick}
+                >
+                  Add Actor
+                </Button>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+export default ActorField;
