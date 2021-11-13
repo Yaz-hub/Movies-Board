@@ -5,6 +5,8 @@ import { Container, Row, Col, ListGroup, Alert } from "react-bootstrap";
 import Actor from "./Actor/Actor";
 import SimilarMovie from "./SimilarMovie/SimilarMovie";
 import ConfirmModal from "./Modal/ConfirmModal";
+import Moment from 'moment';
+import "./MovieDetail.css";
 
 const MovieDetail = (prpos) => {
 
@@ -28,9 +30,7 @@ const MovieDetail = (prpos) => {
   const getMovie = (id) => {
     MovieService.get(id)
       .then((response) => {
-        console.log(response.data);
         setCurrentMovie(response.data);
-        console.log(currentMovie);
       })
       .catch((e) => {
         console.log(e);
@@ -41,35 +41,46 @@ const MovieDetail = (prpos) => {
     getMovie(id);
   }, []);
 
-  
-
   return (
-    <Container>
+    <Container style={{ paddingTop: 10, paddingBottom: 10 }}>
       {currentMovie.id ? (
         <Row>
-          <ConfirmModal movieId={currentMovie.id}></ConfirmModal>
           <Col>
-            <h4>{currentMovie.title}</h4>
-            <div>{currentMovie.release_date}</div>
-            <img
-              src={currentMovie.poster}
-              className="img-fluid img-cover rounded"
-            />
-            <ListGroup horizontal>
+            <Row>
+              <Col xs={8}>
+                <h4 className="section-title">{currentMovie.title}</h4>
+              </Col>
+              <Col className="actions">
+                <ConfirmModal movieId={currentMovie.id}></ConfirmModal>
+              </Col>
+            </Row>
+            <Row>
+              <div className="date">{ Moment(currentMovie.release_date).format('DD/MM/YYYY') }</div>
+            </Row>
+            {/* <div className="text-center" style={{ backgroundImage: `url(${currentMovie.backdrop})` }}> */}
+            <img src={currentMovie.poster} className="img-fluid img-cover rounded" style={{ backdropFilter: "blur(100px)" }}/>
+            {/* </div> */}
+            <ListGroup horizontal className="movie-categories">
               {currentMovie.categories.map((c) => (
                 <ListGroup.Item>{c}</ListGroup.Item>
               ))}
             </ListGroup>
-            <p>{currentMovie.description}</p>
-            <Row className="justify-content-center">
-              {currentMovie.actors.map((a) => (
-                <Actor {...a}></Actor>
-              ))}
+            <p className="pt-2 pb-2">{currentMovie.description}</p>
+
+            <h4 className="section-title">Cast</h4>
+            <Row className="">
+                {currentMovie.actors.map((a) => (
+                  <Actor {...a}></Actor>
+                ))}
             </Row>
-            <Row className="justify-content-center">
-              {currentMovie.similar_movies.map((a) => (
-                <SimilarMovie {...a}></SimilarMovie>
-              ))}
+
+            <h4 className="section-title">Similar Movies</h4>
+            <Row className="row-cols-1 row-cols-md-4">
+                {currentMovie.similar_movies.map((a) => (
+                  <Col className="mb-4">
+                    <SimilarMovie {...a}></SimilarMovie>
+                  </Col>
+                ))}
             </Row>
           </Col>
         </Row>
