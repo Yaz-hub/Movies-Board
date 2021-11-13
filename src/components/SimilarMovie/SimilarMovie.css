@@ -1,0 +1,11 @@
+.movie-categories div {
+    font-weight: bold;
+    font-size: 14;
+    margin: 5px 0;
+    color: #8644c3;
+}
+.movie-date {
+    color: grey;
+    font-weight: bold;
+    font-size: 0.85em;
+}
