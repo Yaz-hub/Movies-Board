@@ -12,7 +12,7 @@ const Actor = ({
             <Row>
                 <Col xs={4} md={2} className="mb-4">
                     <div className="avatar-big"> 
-                        <img className="avatar-img rounded-circle" src={photo} />
+                        <img className="avatar-img rounded-circle" src={photo} alt={name} />
                     </div>
                 </Col>
                 <Col xs={6} className="mb-4">
