@@ -19,7 +19,7 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
   );
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [releaseDate, setReleaseDate] = useState(new Date());
+  const [releaseDate, setReleaseDate] = useState(new Date(movie.release_date));
   const [categories, setCategories] = useState([]);
   const [actors, setActors] = useState([{ name: "", photo: "", character: "" },]);
   const [similarMovies, setSimilarMovies] = useState([{ title: "", poster: "", release_date: "" },]);
@@ -30,16 +30,10 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
       // automatically set values from the selected movie (auto-complete form)
       setMovie({
         title: selectdMovie.title,
-        release_date: selectdMovie.release_date
-          ? new Date(selectdMovie.release_date)
-          : "",
+        release_date: selectdMovie.release_date ? new Date(selectdMovie.release_date) : "",
         description: selectdMovie.overview,
-        poster: selectdMovie.poster_path
-          ? "https://image.tmdb.org/t/p/w342" + selectdMovie.poster_path
-          : "",
-        backdrop: selectdMovie.backdrop_path
-          ? "https://image.tmdb.org/t/p/w342" + selectdMovie.backdrop_path
-          : "",
+        poster: selectdMovie.poster_path ? "https://image.tmdb.org/t/p/w342" + selectdMovie.poster_path : "",
+        backdrop: selectdMovie.backdrop_path ? "https://image.tmdb.org/t/p/w342" + selectdMovie.backdrop_path : "",
         actors: [{}],
         similar_movies: [{}],
         categories: [],
