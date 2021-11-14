@@ -1,12 +1,12 @@
 import { Form, Button } from "react-bootstrap";
 
 const ActorField = ({actors, setActors}) => {
-
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...actors];
-    list[index][name] = value;
+    // remove actor. prefix before settig key
+    list[index][name.replace('actor.','')] = value;
     setActors(list);
   };
 
@@ -32,6 +32,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                name="actor.name"
                 value={x.name}
                 placeholder="Enter Actor Name"
                 onChange={(e) => handleInputChange(e, i)}
@@ -42,6 +43,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                name="actor.photo"
                 value={x.photo}
                 placeholder="Enter Actor photo URL"
                 onChange={(e) => handleInputChange(e, i)}
@@ -52,6 +54,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                name="actor.character"
                 value={x.character}
                 placeholder="Enter Role of actor"
                 onChange={(e) => handleInputChange(e, i)}
