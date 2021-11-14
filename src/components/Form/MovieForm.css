@@ -1,0 +1,8 @@
+fieldset legend {
+    color: #1b1156;
+    text-decoration: underline;
+}
+
+fieldset {
+    margin: 15px 0;
+}
