@@ -6,7 +6,8 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...similarMovies];
-    list[index][name] = value;
+    // remove sm. prefix before settig key
+    list[index][name.replace('sm.','')] = value;
     setSimilarMovies(list);
   };
 
@@ -19,7 +20,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setSimilarMovies([...similarMovies, { title: "", photo: "", release_date: "" }]);
+    setSimilarMovies([...similarMovies, { title: "", poster: "", release_date: "" }]);
   };
 
   return (
@@ -32,6 +33,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                name="sm.title"
                 value={x.title}
                 placeholder="Enter Movie Title"
                 onChange={(e) => handleInputChange(e, i)}
@@ -42,7 +44,8 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
-                value={x.photo}
+                name="sm.poster"
+                value={x.poster}
                 placeholder="Enter Movie Poster URL"
                 onChange={(e) => handleInputChange(e, i)}
               />
@@ -52,6 +55,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                name="sm.release_date"
                 value={x.release_date}
                 placeholder="Enter Release Date"
                 onChange={(e) => handleInputChange(e, i)}
@@ -73,7 +77,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
                   className="btn btn-sm"
                   onClick={handleAddClick}
                 >
-                  Add Movie
+                  Add Similar Movie
                 </Button>
               )}
             </div>
