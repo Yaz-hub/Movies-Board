@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 
