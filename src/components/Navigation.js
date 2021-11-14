@@ -6,7 +6,7 @@ function Navigation() {
   return (
     <Navbar collapseOnSelect expand="lg"variant="dark">
       <Container>
-        <Navbar.Brand href="/"><img src="logo.png" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img src="logo.png" alt="Movies Board" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
