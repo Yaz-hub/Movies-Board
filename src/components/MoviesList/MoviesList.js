@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MovieService from "../../services/MovieService";
 import MovieCard from "../MovieCard/MovieCard";
-import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import ConfirmModal from "../Modal/ConfirmModal";
 import "./MoviesList.css";
 import { Input } from "semantic-ui-react";
@@ -46,11 +46,13 @@ const MoviesList = () => {
 
   return (
     <Container style={{ paddingTop: 10, paddingBottom: 10 }}>
-      <Input
-        icon="search"
-        placeholder="Search..."
-        onChange={(e) => searchItems(e.target.value)}
-      />
+      <Form.Group className="mb-3">
+        <Form.Control
+          icon="search"
+          placeholder="Search..."
+          onChange={(e) => searchItems(e.target.value)}
+        />
+      </Form.Group>
       <h3 className="section-title">Movies List</h3>
       <Row className="row-cols-1 row-cols-md-4">
         {searchInput.length > 1
@@ -60,7 +62,8 @@ const MoviesList = () => {
                   <MovieCard
                     key={movie.id}
                     {...movie}
-                    setShow={setShow} setCurrentMovieId={setCurrentMovieId}
+                    setShow={setShow}
+                    setCurrentMovieId={setCurrentMovieId}
                   />
                 </Col>
               );
@@ -71,7 +74,8 @@ const MoviesList = () => {
                 <MovieCard
                   key={movie.id}
                   {...movie}
-                  setShow={setShow} setCurrentMovieId={setCurrentMovieId}
+                  setShow={setShow}
+                  setCurrentMovieId={setCurrentMovieId}
                 />
               </Col>
             ))}
