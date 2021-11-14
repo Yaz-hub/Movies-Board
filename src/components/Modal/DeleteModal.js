@@ -1,21 +1,20 @@
 import MovieService from "../../services/MovieService";
 import { Modal, Button } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const ConfirmModal = ({movieId, show, setShow}) => {
+const DeleteModal = ({movieId, show}) => {
     const navigate = useNavigate();
   
     const handleClose = () => setShow(false);
     
     const handleRemoveMovie = (id) => {
-      MovieService.remove(id);
-      setShow(false);
-      navigate('/movies');
+        MovieService.remove(id);
+        navigate('/movies');
     };
     
     return (
-      <>
+      <>  
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Movie</Modal.Title>
@@ -34,4 +33,4 @@ const ConfirmModal = ({movieId, show, setShow}) => {
     );
   }
   
-  export default ConfirmModal;
+  export default DeleteModal;
