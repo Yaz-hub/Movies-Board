@@ -1,10 +1,10 @@
-import MovieService from "../services/MovieService";
+import MovieService from "../../services/MovieService";
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, ListGroup, Alert } from "react-bootstrap";
-import Actor from "./Actor/Actor";
-import SimilarMovie from "./SimilarMovie/SimilarMovie";
-import ConfirmModal from "./Modal/ConfirmModal";
+import { Container, Row, Col, ListGroup, Alert, Button } from "react-bootstrap";
+import Actor from "../Actor/Actor";
+import SimilarMovie from "../SimilarMovie/SimilarMovie";
+import ConfirmModal from "../Modal/ConfirmModal";
 import Moment from 'moment';
 import "./MovieDetail.css";
 
@@ -12,6 +12,8 @@ const MovieDetail = (prpos) => {
 
   let { id } = useParams();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
   const initialMovieState = {
     id: null,
@@ -51,7 +53,13 @@ const MovieDetail = (prpos) => {
                 <h4 className="section-title">{currentMovie.title}</h4>
               </Col>
               <Col className="actions">
-                <ConfirmModal movieId={currentMovie.id}></ConfirmModal>
+                <Button variant="primary" onClick={() => navigate(`/movies/${id}/edit`)}>
+                Edit
+                </Button>{' '}
+                <Button variant="danger" onClick={handleShow}>
+                Delete
+                </Button>
+                <ConfirmModal movieId={currentMovie.id} show={show} setShow={setShow}></ConfirmModal>
               </Col>
             </Row>
             <Row>
