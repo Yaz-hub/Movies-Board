@@ -1,6 +1,5 @@
 import React from "react";
 import { Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import "./SimilarMovie.css";
 import Moment from 'moment';
 
@@ -9,7 +8,6 @@ const SimilarMovie = ({
     poster,
     release_date
 }) => {
-    const navigate = useNavigate();
 
     return(
         <Card style={{ width: '14rem' }}>
