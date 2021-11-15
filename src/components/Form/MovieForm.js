@@ -5,7 +5,7 @@ import MovieService from "../../services/MovieService";
 import ActorField from "./ActorField";
 import CategoryInput from "./CategoryInput";
 import SimiliarMovieField from "./SimilarMovieField";
-import validator from 'validator'
+import validator from "validator";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./MovieForm.css";
@@ -20,9 +20,19 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const [releaseDate, setReleaseDate] = useState(new Date(movie.release_date));
-  const [categories, setCategories] = useState([movie.categories ? movie.categories : categories]);
-  const [actors, setActors] = useState([{ name: "", photo: "", character: "" },]);
-  const [similarMovies, setSimilarMovies] = useState([{ title: "", poster: "", release_date: "" },]);
+  const [categories, setCategories] = useState(
+    movie.categories ? movie.categories : []
+  );
+  const [actors, setActors] = useState(
+    movie.actors && movie.actors.length
+      ? movie.actors
+      : [{ name: "", photo: "", character: "" }]
+  );
+  const [similarMovies, setSimilarMovies] = useState(
+    movie.similar_movies && movie.similar_movies.length
+      ? movie.similar_movies
+      : [{ title: "", poster: "", release_date: "" }]
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,10 +40,16 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
       // automatically set values from the selected movie (auto-complete form)
       setMovie({
         title: selectdMovie.title,
-        release_date: selectdMovie.release_date ? new Date(selectdMovie.release_date) : "",
+        release_date: selectdMovie.release_date
+          ? new Date(selectdMovie.release_date)
+          : "",
         description: selectdMovie.overview,
-        poster: selectdMovie.poster_path ? "https://image.tmdb.org/t/p/w342" + selectdMovie.poster_path : "",
-        backdrop: selectdMovie.backdrop_path ? "https://image.tmdb.org/t/p/w342" + selectdMovie.backdrop_path : "",
+        poster: selectdMovie.poster_path
+          ? "https://image.tmdb.org/t/p/w342" + selectdMovie.poster_path
+          : "",
+        backdrop: selectdMovie.backdrop_path
+          ? "https://image.tmdb.org/t/p/w342" + selectdMovie.backdrop_path
+          : "",
         actors: [{}],
         similar_movies: [{}],
         categories: [],
@@ -60,16 +76,16 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
     const { name, value } = event.target;
     let error = [];
     switch (name) {
-      case 'poster':
-      case 'backdrop':
+      case "poster":
+      case "backdrop":
         if (!validator.isURL(value)) {
-          error[name] = 'Please enter a valid URL for ' + name;
+          error[name] = "Please enter a valid URL for " + name;
         }
         break;
       default:
         setMovie((prevState) => ({
           ...prevState,
-          [name]: value
+          [name]: value,
         }));
     }
     setErrorMsg(error);
@@ -94,14 +110,31 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
 
     if (releaseDate && releaseDate instanceof Date) {
       // handle release_date format
-      let y = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(releaseDate);
-      let m = new Intl.DateTimeFormat('en-US', { month: '2-digit' }).format(releaseDate);
-      let d = new Intl.DateTimeFormat('en-US', { day: '2-digit' }).format(releaseDate);
+      let y = new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(
+        releaseDate
+      );
+      let m = new Intl.DateTimeFormat("en-US", { month: "2-digit" }).format(
+        releaseDate
+      );
+      let d = new Intl.DateTimeFormat("en-US", { day: "2-digit" }).format(
+        releaseDate
+      );
 
-
-      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
-      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
-      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
+      Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "2-digit",
+      }).format(releaseDate);
+      Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "2-digit",
+      }).format(releaseDate);
+      Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "numeric",
+        day: "2-digit",
+      }).format(releaseDate);
       data["release_date"] = `${y}-${m}-${d}`;
     }
     data["categories"] = categories;
@@ -164,7 +197,9 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
               placeholder="Enter Poster URL"
               onChange={handleInputChange}
             />
-            <span style={{fontWeight: 'bold', color: 'red'}}>{errorMsg["poster"]}</span>
+            <span style={{ fontWeight: "bold", color: "red" }}>
+              {errorMsg["poster"]}
+            </span>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Backdrop URL</Form.Label>
@@ -176,7 +211,9 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
               placeholder="Enter backdrop URL"
               onChange={handleInputChange}
             />
-            <span style={{fontWeight: 'bold', color: 'red'}}>{errorMsg["backdrop"]}</span>
+            <span style={{ fontWeight: "bold", color: "red" }}>
+              {errorMsg["backdrop"]}
+            </span>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Categories</Form.Label>
@@ -189,23 +226,14 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
         <fieldset>
           <legend>Actors</legend>
           <Form.Group className="mb-3">
-            <ActorField
-              actors={
-                movie.actors && movie.actors.length ? movie.actors : actors
-              }
-              setActors={setActors}
-            ></ActorField>
+            <ActorField actors={actors} setActors={setActors}></ActorField>
           </Form.Group>
         </fieldset>
         <fieldset>
           <legend>Similar Movies</legend>
           <Form.Group className="mb-3">
             <SimiliarMovieField
-              similarMovies={
-                movie.similar_movies && movie.similar_movies.length
-                  ? movie.similar_movies
-                  : similarMovies
-              }
+              similarMovies={similarMovies}
               setSimilarMovies={setSimilarMovies}
             ></SimiliarMovieField>
           </Form.Group>
