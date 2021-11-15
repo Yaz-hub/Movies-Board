@@ -4,7 +4,6 @@ import MovieCard from "../MovieCard/MovieCard";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import ConfirmModal from "../Modal/ConfirmModal";
 import "./MoviesList.css";
-import { Input } from "semantic-ui-react";
 
 const MoviesList = () => {
   const [movies, setMovies] = useState([]);
