@@ -146,7 +146,7 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
       console.log(data);
       MovieService.create(data);
     }
-    navigate("/");
+    // navigate("/");
   };
 
   return (
