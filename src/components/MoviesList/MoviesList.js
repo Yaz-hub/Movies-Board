@@ -54,7 +54,7 @@ const MoviesList = () => {
         />
       </Form.Group>
       <h3 className="section-title">Movies List</h3>
-      <Row className="row-cols-1 row-cols-md-4">
+      <Row className="row-cols-1 row-cols-md-3 row-cols-lg-4">
         {searchInput.length > 1
           ? filteredResults.map((movie) => {
               return (
