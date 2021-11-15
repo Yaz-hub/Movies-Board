@@ -1,6 +1,10 @@
 import { Form, Button } from "react-bootstrap";
+import { useState } from "react";
+
 
 const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
+
+  const [required, setRequired] = useState(false); 
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -33,6 +37,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="sm.title"
                 value={x.title}
                 placeholder="Enter Movie Title"
@@ -44,6 +49,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="sm.poster"
                 value={x.poster}
                 placeholder="Enter Movie Poster URL"
@@ -55,6 +61,7 @@ const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="sm.release_date"
                 value={x.release_date}
                 placeholder="Enter Release Date"
