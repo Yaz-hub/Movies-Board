@@ -31,12 +31,15 @@ const MoviesList = () => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
       const filteredData = movies.filter((item) => {
-        if (item.title || item.categories || item.realease_date) {
-          return Object.values(item)
-            .join("")
-            .toLowerCase()
-            .includes(searchInput.toLowerCase());
-        }
+        let searchable = {};
+        searchable['title'] = item.title;
+        searchable['categories'] = item.categories.join(" ");
+        searchable['release_date'] = item.release_date;
+
+        return Object.values(searchable)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
       });
       setFilteredResults(filteredData);
     } else {
@@ -58,7 +61,7 @@ const MoviesList = () => {
         {searchInput.length > 1
           ? filteredResults.map((movie) => {
               return (
-                <Col className="mb-4">
+                <Col key={movie.id} className="mb-4">
                   <MovieCard
                     key={movie.id}
                     {...movie}
@@ -70,7 +73,7 @@ const MoviesList = () => {
             })
           : movies &&
             movies.map((movie) => (
-              <Col className="mb-4">
+              <Col  key={movie.id} className="mb-4">
                 <MovieCard
                   key={movie.id}
                   {...movie}
