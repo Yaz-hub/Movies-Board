@@ -20,7 +20,7 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const [releaseDate, setReleaseDate] = useState(new Date(movie.release_date));
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([movie.categories ? movie.categories : categories]);
   const [actors, setActors] = useState([{ name: "", photo: "", character: "" },]);
   const [similarMovies, setSimilarMovies] = useState([{ title: "", poster: "", release_date: "" },]);
   const navigate = useNavigate();
@@ -78,7 +78,6 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
   const handleOnSubmit = (event) => {
     const formData = new FormData(event.currentTarget);
     event.preventDefault();
-    console.log(errorMsg);
     if (errorMsg !== "") {
       return;
     }
@@ -95,9 +94,14 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
 
     if (releaseDate && releaseDate instanceof Date) {
       // handle release_date format
-      let y = new Intl.DateTimeFormat("en", { year: "numeric" }).format(releaseDate);
-      let m = new Intl.DateTimeFormat("en", { month: "numeric" }).format(releaseDate);
-      let d = new Intl.DateTimeFormat("en", { day: "numeric" }).format(releaseDate);
+      let y = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(releaseDate);
+      let m = new Intl.DateTimeFormat('en-US', { month: '2-digit' }).format(releaseDate);
+      let d = new Intl.DateTimeFormat('en-US', { day: '2-digit' }).format(releaseDate);
+
+
+      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
+      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
+      Intl.DateTimeFormat('en-US', { year: 'numeric',  month: 'numeric',  day: '2-digit'}).format(releaseDate)
       data["release_date"] = `${y}-${m}-${d}`;
     }
     data["categories"] = categories;
@@ -106,6 +110,7 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
     if (editedMovie && editedMovie.id) {
       MovieService.update(editedMovie.id, data);
     } else {
+      console.log(data);
       MovieService.create(data);
     }
     navigate("/");
@@ -176,7 +181,7 @@ const MovieFrom = ({ selectdMovie, editedMovie }) => {
           <Form.Group className="mb-3">
             <Form.Label>Categories</Form.Label>
             <CategoryInput
-              tags={movie.categories ? movie.categories : categories}
+              tags={categories}
               handleChange={handleCategoryChange}
             ></CategoryInput>
           </Form.Group>
