@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const ActorField = ({actors, setActors}) => {
+  const [required, setRequired] = useState(false); 
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
+    if (value !== "") {
+        setRequired(true);
+    }
     const list = [...actors];
     // remove actor. prefix before settig key
     list[index][name.replace('actor.','')] = value;
@@ -22,6 +27,8 @@ const ActorField = ({actors, setActors}) => {
     setActors([...actors, { name: "", photo: "", character: "" }]);
   };
 
+  
+
   return (
     <>
       {actors.map((x, i) => {
@@ -32,6 +39,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="actor.name"
                 value={x.name}
                 placeholder="Enter Actor Name"
@@ -43,6 +51,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="actor.photo"
                 value={x.photo}
                 placeholder="Enter Actor photo URL"
@@ -54,6 +63,7 @@ const ActorField = ({actors, setActors}) => {
               <Form.Control
                 className="input-control"
                 type="text"
+                required={required}
                 name="actor.character"
                 value={x.character}
                 placeholder="Enter Role of actor"
