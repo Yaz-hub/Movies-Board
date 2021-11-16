@@ -4,11 +4,14 @@ import { useState } from "react";
 
 const SimiliarMovieField = ({similarMovies, setSimilarMovies}) => {
 
-  const [required, setRequired] = useState(false); 
+  const [required, setRequired] = useState(false);
 
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
+    if (value !== "") {
+      setRequired(true);
+  }
     const list = [...similarMovies];
     // remove sm. prefix before settig key
     list[index][name.replace('sm.','')] = value;
